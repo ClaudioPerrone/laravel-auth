@@ -18,7 +18,7 @@
 
         <div class="mb-3">
             <label for="summary" class="form-label">Summary</label>
-            <textarea class="form-control" id="summary" name="summary" rows="3"></textarea>
+            <textarea class="form-control" id="summary" name="summary" rows="15"></textarea>
         </div>
 
         <button type="submit" class="btn btn-primary">Save</button>
