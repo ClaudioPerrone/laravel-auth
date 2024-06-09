@@ -13,7 +13,7 @@
       </div>
     @endif
 
-    <form action="{{ route('admin.projects.store') }}" method="POST">
+    <form action="{{ route('admin.projects.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
         <div class="mb-3">
@@ -22,13 +22,18 @@
         </div>
 
         <div class="mb-3">
-            <label for="client_name" class="form-label">Client Name</label>
-            <input type="text" class="form-control" id="client_name" name="client_name" value="{{ old('client_name') }}">
+          <label for="client_name" class="form-label">Client Name</label>
+          <input type="text" class="form-control" id="client_name" name="client_name" value="{{ old('client_name') }}">
         </div>
 
         <div class="mb-3">
-            <label for="summary" class="form-label">Summary</label>
-            <textarea class="form-control" id="summary" name="summary" rows="15">{{ old('summary') }}</textarea>
+          <label for="cover_image" class="form-label">Choose image</label>
+          <input class="form-control" type="file" id="cover_image" name="cover_image">
+        </div>
+
+        <div class="mb-3">
+          <label for="summary" class="form-label">Summary</label>
+          <textarea class="form-control" id="summary" name="summary" rows="15">{{ old('summary') }}</textarea>
         </div>
 
         <button type="submit" class="btn btn-primary">Save</button>

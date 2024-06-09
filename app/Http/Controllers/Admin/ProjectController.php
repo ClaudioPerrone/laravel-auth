@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Project;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Storage;
 
 class ProjectController extends Controller
 {
@@ -51,15 +52,23 @@ class ProjectController extends Controller
         $formData = $request->all();
         //dd($formData);
 
+        if($request->hasFile('cover_image')) {
+            //Upload del file all'interno della cartella pubblica
+            $img_path = Storage::disk('public')->put('project_images', $formData['cover_image']);
+            //Salvare nel db il path del file caricato nella colonna cover_image
+            $formData['cover_image'] = $img_path;
+        }
+
+
         $newProject = new Project();
         //$newProject->name = $formData('name');
-        //$newProject->slug = Str::slug($formData['name'], '-');
-        $newProject->slug = Str::slug($newProject->name, '-');
+        //$newProject->slug = Str::slug($formData->name, '-');
+        $newProject->slug = Str::slug($formData['name'], '-');
         $newProject->fill($formData);
         //dd($newProject);
         $newProject->save();
 
-        return redirect()->route('admin.projects.show', ['project' => $newProject->id]);
+        return redirect()->route('admin.projects.show', ['project' => $newProject->slug]);
     }
 
     /**
@@ -110,6 +119,19 @@ class ProjectController extends Controller
         ]);
 
         $formData = $request->all();
+
+        if($request->hasFile('cover_image')) {
+            //Se c'è la vaecchia immagine cancellarla
+            if ($project->cover_image) {
+                Storage::delete($project->cover_image);
+            }
+
+            //Upload del file all'interno della cartella pubblica
+            $img_path = Storage::disk('public')->put('project_images', $formData['cover_image']);
+            //Salvare nel db il path del file caricato nella colonna cover_image
+            $formData['cover_image'] = $img_path;
+        }
+
         $formData['slug'] = Str::slug($formData['name'], '-');
         $project->update($formData);
         //dd($project);

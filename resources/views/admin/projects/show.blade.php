@@ -31,6 +31,12 @@
         <h4><strong>Updated at:</strong> {{ $project->updated_at }}</h4>
     </div>
 
+    @if ($project->cover_image)
+        <div>
+            <img src="{{ asset('storage/' . $project->cover_image) }}" alt="{{ $project->name }}">
+        </div>
+    @endif
+
     <div class="mt-5">
         <h4>Actions</h4>
 

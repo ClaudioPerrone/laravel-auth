@@ -11,7 +11,7 @@
                 <th scope="col">Client name</th>
                 <th scope="col">Created at</th>
                 <th scope="col">Actions</th>
-        </tr>
+            </tr>
         </thead>
         <tbody>
             @foreach ($projects as $project)
@@ -35,7 +35,6 @@
                                 @method('DELETE')
     
                                 <button class="btn btn-danger" type="submit">Delete</button>
-
                             </form>
                         </div>
                     </td>

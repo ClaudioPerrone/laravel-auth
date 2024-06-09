@@ -3,7 +3,7 @@
 @section('content')
     <h1>Edit del post: {{ $project->name }}</h1>
 
-    <form action="{{ route('admin.projects.update', ['project' => $project->id]) }}" method="POST">
+    <form action="{{ route('admin.projects.update', ['project' => $project->id]) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 
@@ -15,6 +15,20 @@
         <div class="mb-3">
             <label for="client_name" class="form-label">Client Name</label>
             <input type="text" class="form-control" id="client_name" name="client_name" value="{{ $project->client_name }}">
+        </div>
+
+        <div class="mb-3">
+            <label for="cover_image" class="form-label">Choose image</label>
+            <input class="form-control" type="file" id="cover_image" name="cover_image">
+
+            @if ($project->cover_image)
+                <div>
+                    <img src="{{ asset('storage/' . $project->cover_image) }}" alt="{{ $project->name }}">
+                </div>
+                  
+                @else
+                    <p>No image</p>
+            @endif
         </div>
 
         <div class="mb-3">
